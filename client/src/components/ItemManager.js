@@ -1,20 +1,20 @@
 import React, { useState, useEffect } from 'react'
 import axios from 'axios'
-import TableFruit from './TableFruit'
+import TableItems from './TableItems'
 
-export default function FruitManager() {
-    const [fruits, setFruits] = useState([])
+export default function ItemManager() {
+    const [items, setItems] = useState([])
     const [loading, setLoading] = useState(false)
 
     useEffect(() => {
-        fetchFruits()
+        fetchItems()
     }, [])
 
-    const fetchFruits = async () => {
+    const fetchItems = async () => {
         try {
             setLoading(true)
-            const response = await axios.get('http://localhost:8080/fruits')
-            setFruits(response.data)
+            const response = await axios.get('http://localhost:8080/items')
+            setItems(response.data)
             setLoading(false)
         } catch (error) {
             console.log(error)
@@ -25,13 +25,13 @@ export default function FruitManager() {
 
     return (
         <div>
-            <h1>Fruits</h1>
+            <h1>Items</h1>
            {/* <ul>
                 {fruits.map(fruit => (
                     <li key={fruit.id}>{fruit.name}</li>
                 ))}
             </ul> */}
-            {fruits.length > 0 && <TableFruit fruits={fruits} />}
+            {items.length > 0 && <TableItems items={items} />}
         </div>
     )
 }

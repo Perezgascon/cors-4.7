@@ -1,12 +1,12 @@
 import React from 'react'
-import FruitManager from './components/FruitManager'
-import TableFruit from './components/TableFruit'
+import ItemManager from './components/ItemManager'
+import TableItems from './components/TableItems'
 
 
 export default function App() {
   return (
     <div>
-      <FruitManager />
+      <ItemManager />
     </div>
   )
 }
