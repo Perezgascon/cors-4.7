@@ -1,6 +1,17 @@
 const express = require('express');
+const cors = require('cors');
 const app = express();
 const PORT = 8080;
+
+const customCors = (req, res, next) => {
+    if(req.method === "PUT"){
+        res.status(403).send("GET method not allowed");
+    } else {
+        cors()(req, res, next);
+    }
+}
+
+app.use(customCors);
 
 app.use(express.json());
 

@@ -2,8 +2,8 @@ import React, { useState, useEffect } from 'react'
 import axios from 'axios'
 
 export default function FruitManager() {
-    const [fruits, setFruits] = ([]);
-    const [loading, setLoading] = (false);
+    const [fruits, setFruits] = useState([])
+    const [loading, setLoading] = useState(false)
 
     useEffect(() => {
         fetchFruits()
