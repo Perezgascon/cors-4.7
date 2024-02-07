@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import axios from 'axios'
+import TableFruit from './TableFruit'
 
 export default function FruitManager() {
     const [fruits, setFruits] = useState([])
@@ -25,11 +26,12 @@ export default function FruitManager() {
     return (
         <div>
             <h1>Fruits</h1>
-            <ul>
+           {/* <ul>
                 {fruits.map(fruit => (
                     <li key={fruit.id}>{fruit.name}</li>
                 ))}
-            </ul>
+            </ul> */}
+            {fruits.length > 0 && <TableFruit fruits={fruits} />}
         </div>
     )
 }
