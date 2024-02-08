@@ -25,7 +25,7 @@ export default function Categories({ onSelectCategory }) {
             <ul>
                 {categories.map(category => (
                     <li key={category.id}>
-                        <button onClick={() => onSelectCategory(category.id)}>
+                        <button onClick={() => onSelectCategory(category.name)}>
                             {category.name}
                         </button>
                     </li>

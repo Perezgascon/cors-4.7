@@ -88,6 +88,14 @@ app.get('/categories', (req, res) => {
     res.json(categories);
 });
 
+// Endpoint to get items by category
+app.get('/itemsByCategory/:categoryName', (req, res) => {
+    const categoryName = req.params.categoryName;
+    const itemsByCategory = items.filter(item => item.category === categoryName);
+    res.json(itemsByCategory);
+});
+
+
 
 app.listen(PORT, () => {
     console.log(`App is listening on port ${PORT}`);
