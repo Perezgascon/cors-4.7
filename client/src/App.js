@@ -8,7 +8,6 @@ import CategoriesWithItems from './components/CategoriesWithItems'
 export default function App() {
   return (
     <div>
-      {/* <ItemManager /> */}
       <CategoriesWithItems />
     </div>
   )
