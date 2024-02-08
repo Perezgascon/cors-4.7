@@ -95,7 +95,18 @@ app.get('/itemsByCategory/:categoryName', (req, res) => {
     res.json(itemsByCategory);
 });
 
-
+// Update existing categories array
+app.put('/categories/:id', (req, res) => {
+    const categoryId = parseInt(req.params.id);
+    const updatedCategory = req.body;
+    const index = categories.findIndex(category => category.id === categoryId);
+    if (index !== -1) {
+        categories[index] = { ...categories[index], ...updatedCategory };
+        res.json(categories[index]);
+    } else {
+        res.status(404).json({ message: "Category not found" });
+    }
+});
 
 app.listen(PORT, () => {
     console.log(`App is listening on port ${PORT}`);

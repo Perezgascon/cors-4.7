@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 
-export default function CategoryForm({ categoryId, initialCategoryName, onCancel }) {
+export default function CategoryForm({ categoryId, initialCategoryName, onCancel, onUpdateCategory }) {
     const [categoryName, setCategoryName] = useState(initialCategoryName);
 
     const handleInputChange = (event) => {
@@ -13,7 +13,8 @@ export default function CategoryForm({ categoryId, initialCategoryName, onCancel
         event.preventDefault();
         try {
             await axios.put(`http://localhost:8080/categories/${categoryId}`, { name: categoryName });
-            // Optionally, you can fetch the updated categories after editing
+            // Call the parent component's onUpdateCategory function to update the category name in the state
+            onUpdateCategory(categoryId, categoryName);
             onCancel(); // Cancel the edit mode
         } catch (error) {
             console.error('Error updating category:', error);

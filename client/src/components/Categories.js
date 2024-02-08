@@ -29,14 +29,14 @@ export default function Categories({ onSelectCategory }) {
         setEditingCategoryId(null);
     };
 
-    const handleSaveCategory = async (categoryId, newName) => {
-        try {
-            await axios.put(`http://localhost:8080/categories/${categoryId}`, { name: newName });
-            setEditingCategoryId(null);
-            fetchCategories(); // Refresh the categories after editing
-        } catch (error) {
-            console.error('Error updating category:', error);
-        }
+    const handleUpdateCategory = (categoryId, newName) => {
+        // Update the category name in the state
+        setCategories(categories.map(category => {
+            if (category.id === categoryId) {
+                return { ...category, name: newName };
+            }
+            return category;
+        }));
     };
 
     return (
@@ -49,8 +49,8 @@ export default function Categories({ onSelectCategory }) {
                             <CategoryForm
                                 categoryId={category.id}
                                 initialCategoryName={category.name}
-                                onSave={handleSaveCategory}
                                 onCancel={handleCancelEdit}
+                                onUpdateCategory={handleUpdateCategory} // Pass the handleUpdateCategory function
                             />
                         ) : (
                             <div>
