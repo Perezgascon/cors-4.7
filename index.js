@@ -20,6 +20,9 @@ const items = [
     { id: 5, name: "Banana", category: "Fruit" }
 ];
 
+const categories = [...new Set(items.map(item => item.category))].map((category, index) => ({ id: index + 1, name: category }));
+
+
 app.get('/items', (req, res) => {
     res.json(items); // Send all fruits as JSON response
 });
@@ -34,18 +37,24 @@ app.get('/items/:id', (req, res) => {
     }
 });
 
-// Endpoint to create a fruit
 app.post('/items', (req, res) => {
-    // Assuming the request body contains JSON data with the new fruit details
     const newItem = req.body;
-    // Generate a new ID for the fruit
+    const newCategory = newItem.category;
+    
+    // Check if the category already exists
+    const existingCategory = categories.find(category => category.name === newCategory);
+    if (!existingCategory) {
+        // If the category doesn't exist, create a new one
+        const newCategoryId = categories.length + 1;
+        categories.push({ id: newCategoryId, name: newCategory });
+    }
+
+    // Generate a new ID for the item
     const newId = items.length + 1;
     newItem.id = newId;
-    const newCategory = req.body.category;
-    newItem.category = newCategory;
-    // Add the new fruit to the fruits array
+    // Add the new item to the items array
     items.push(newItem);
-    res.status(201).json(newItem); // Return the newly created fruit with status code 201
+    res.status(201).json(newItem); // Return the newly created item with status code 201
 });
 
 // Endpoint to update a fruit
@@ -71,6 +80,12 @@ app.delete('/items/:id', (req, res) => {
     } else {
         res.status(404).json({ message: "Item not found" });
     }
+});
+
+// Get all categories
+
+app.get('/categories', (req, res) => {
+    res.json(categories);
 });
 
 
